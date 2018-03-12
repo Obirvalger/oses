@@ -87,4 +87,15 @@ Vagrant.configure("2") do |config|
         dnf install -y #{packages}
       EOF
   end
+
+  config.vm.define "opensuse", autostart: massive_start do |opensuse|
+    opensuse.vm.box = "opensuse/openSUSE-Tumbleweed-x86_64"
+    opensuse.vm.hostname = "opensuse"
+    opensuse.vm.provision "install packages",
+      type: "shell",
+      preserve_order: true,
+      inline: <<~EOF
+        zypper install -y --force-resolution #{packages}
+      EOF
+  end
 end
