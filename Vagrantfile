@@ -1,7 +1,7 @@
 # vi: set ft=ruby :
 Vagrant.configure("2") do |config|
   massive_start = false
-  packages = "vim zsh git"
+  packages = "vim zsh git tmux"
 
   config.vm.synced_folder ".", "/vagrant", disabled: true
   config.vm.synced_folder "synced", "/vagrant", create: true
@@ -13,7 +13,7 @@ Vagrant.configure("2") do |config|
   end
 
   # dotfiles
-  %w(zshrc vimrc gitconfig).each do |name|
+  %w(zshrc vimrc gitconfig tmux.conf).each do |name|
     config.vm.provision "dotfile #{name}", type: "file",
       source: "~/.#{name}", destination: ".#{name}"
   end
